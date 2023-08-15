@@ -1,0 +1,15 @@
+#!/bin/sh
+# An example hook script to verify what is about to be pushed.  Called by "git
+# push" after it has checked the remote status, but before anything has been
+# pushed.  If this script exits with a non-zero status nothing will be pushed.
+
+echo "Checking unit-tests..."
+
+if ! ./gradlew test; then
+    echo "Unit-tests failed, therefore the push is canceled."
+    echo "Please fix them before pushing again."
+    exit 1
+else
+echo "\nWell done, unit-tests are green!\n"
+    exit 0
+fi
